@@ -12,28 +12,28 @@ module.exports = ({ config }) => {
   msApi.post('/update', async (req, res) => {
     try {
       try {
-        const redirectDetails = req.body;
+        const customerUpdateDetails = req.body;
 
         let url = config.extensions.marketing.endpoint + '/rest/default/V1/w10/marketing';
         console.log('url', url);
 
-        const searchRedirectResponse = await axios.post(url,
-          redirectDetails,
+        const customerUpdateResponse = await axios.post(url,
+          customerUpdateDetails,
           {
             headers: {
               'Content-type': 'application/json'
             }
           }
         );
-        console.log(searchRedirectResponse);
-        apiStatus(res, searchRedirectResponse.data);
+        console.log(customerUpdateResponse);
+        apiStatus(res, customerUpdateResponse.data);
         
       } catch (error) {
         console.error(error);
         apiStatus(
           res,
           {
-            message: 'Some Error Occurred while processing fetching redirect Url',
+            message: 'Some Error Occurred while processing fetching customerUpdateResponse Url',
             reqBody: req.body,
             error
           },
@@ -42,7 +42,7 @@ module.exports = ({ config }) => {
       }
     } catch (error) {
       console.error(error);
-      apiStatus(res, 'That Error Occurred while processing fetching redirect Url', 500);
+      apiStatus(res, 'That Error Occurred while processing fetching customerUpdateResponse Url', 500);
     }
   });
   /**
