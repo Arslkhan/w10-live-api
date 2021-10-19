@@ -21,36 +21,35 @@ module.exports = ({ config }) => {
    * POST send an email
    */
   msApi.post("/send-email", (req, res) => {
-    apiStatus("Hi there Arsl");
-    // try {
-    //   try {
-    //     const emailDetails = req.body;
-    //     const emailResponse = axios.post(
-    //       "https://secure.w10.world/rest/default/V1/w10/contactus",
-    //       emailDetails,
-    //       {
-    //         headers: {
-    //           "Content-type": "application/json",
-    //         },
-    //       }
-    //     );
-    //     apiStatus(res, emailResponse.data);
-    //   } catch (error) {
-    //     console.error(error);
-    //     apiStatus(
-    //       res,
-    //       "This Some Error Occurred while processing contact us email",
-    //       500
-    //     );
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    //   apiStatus(
-    //     res,
-    //     "That Some Error Occurred while sending contact us email",
-    //     500
-    //   );
-    // }
+    try {
+      try {
+        const emailDetails = req.body;
+        const emailResponse = axios.post(
+          "https://secure.w10.world/rest/default/V1/w10/contactus",
+          emailDetails,
+          {
+            headers: {
+              "Content-type": "application/json",
+            },
+          }
+        );
+        apiStatus('Arslhere', res, emailResponse.data);
+      } catch (error) {
+        console.error(error);
+        apiStatus(
+          res,
+          "This Some Error Occurred while processing contact us email",
+          500
+        );
+      }
+    } catch (error) {
+      console.error(error);
+      apiStatus(
+        res,
+        "That Some Error Occurred while sending contact us email",
+        500
+      );
+    }
   });
   msApi.post("/update", async (req, res) => {
     try {
