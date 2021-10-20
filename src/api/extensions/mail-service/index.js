@@ -24,6 +24,7 @@ module.exports = ({ config }) => {
     try {
       try {
         const emailDetails = req.body;
+        console.error('emailDetails', emailDetails);
         const emailResponse = axios.post(
           'https://secure.w10.world/rest/default/V1/w10/contactus',
           emailDetails,
@@ -33,6 +34,7 @@ module.exports = ({ config }) => {
             }
           }
         );
+        console.error('emailResponse', emailResponse.data);
         apiStatus(res, emailResponse.data);
       } catch (error) {
         console.error(error);
