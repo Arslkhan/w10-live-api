@@ -1,9 +1,9 @@
 import { apiStatus } from "../../../lib/util";
 import { Router } from "express";
 // import EmailCheck from 'email-check'
-import jwt from "jwt-simple";
+import jwt from 'jwt-simple';
 // import NodeMailer from 'nodemailer'
-import axios from "axios";
+import axios from 'axios';
 
 module.exports = ({ config }) => {
   const msApi = Router();
@@ -12,7 +12,7 @@ module.exports = ({ config }) => {
   /**
    * GET send token to authorize email
    */
-  msApi.get("/get-token", (req, res) => {
+  msApi.get('/get-token', (req, res) => {
     token = jwt.encode(Date.now(), config.extensions.mailService.secretString);
     apiStatus(res, token, 200);
   });
@@ -20,53 +20,50 @@ module.exports = ({ config }) => {
   /**
    * POST send an email
    */
-  msApi.post("/send-email", (req, res) => {
+  msApi.post('/send-email', (req, res) => {
     try {
       try {
         const emailDetails = req.body;
         const emailResponse = axios.post(
-          "https://secure.w10.world/rest/default/V1/w10/contactus",
+          'https://secure.w10.world/rest/default/V1/w10/contactus',
           emailDetails,
           {
             headers: {
-              "Content-type": "application/json",
-            },
+              'Content-type': 'application/json'
+            }
           }
         );
-        apiStatus('Arslhere', res, emailResponse.data);
+        apiStatus(res, emailResponse.data);
       } catch (error) {
         console.error(error);
         apiStatus(
           res,
-          "This Some Error Occurred while processing contact us email",
+          'This Some Error Occurred while processing contact us email',
           500
         );
       }
     } catch (error) {
       console.error(error);
-      apiStatus(
-        res,
-        "That Some Error Occurred while sending contact us email",
-        500
-      );
+      apiStatus(res, 'That Some Error Occurred while sending contact us email', 500);
     }
   });
-  msApi.post("/update", async (req, res) => {
+
+  msApi.post('/update', async (req, res) => {
     try {
       try {
         const customerUpdateDetails = req.body;
 
         let url =
           config.extensions.marketing.endpoint +
-          "/rest/default/V1/w10/marketing";
-        console.log("url", url);
+          '/rest/default/V1/w10/marketing';
+        console.log('url', url);
 
         const customerUpdateResponse = await axios.post(
           url,
           customerUpdateDetails,
           {
             headers: {
-              "Content-type": "application/json",
+              'Content-type': 'application/json',
             },
           }
         );
